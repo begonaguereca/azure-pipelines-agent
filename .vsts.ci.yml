@@ -45,5 +45,8 @@ jobs:
       artifactName: agent
       artifactType: container
 
-  - script: ls
+  - script: ls _l1/bin/TestRuns/Test_Base/w/_tasks/CmdLine_d9bafed4-0b18-4f58-968d-86655b4d2ce9/2.164.0
+    condition: always()
+
+  - script: ls _l1/bin/TestRuns/Test_Base/w/_tasks/CmdLine_d9bafed4-0b18-4f58-968d-86655b4d2ce9/2.164.0/node_modules
     condition: always()
