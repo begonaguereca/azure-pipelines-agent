@@ -10,3 +10,12 @@ steps:
 - script: ./dev.sh testl1
   workingDirectory: src
   displayName: Functional tests
+
+# Upload test log
+- task: PublishBuildArtifacts@1
+  displayName: Publish Test logs
+  condition: always()
+  inputs:
+    pathToPublish: src/Test/TestLogs
+    artifactName: ${{ parameters.testLogTitle }}-$(System.JobId)
+    artifactType: container
