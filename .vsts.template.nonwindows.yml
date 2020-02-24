@@ -3,40 +3,13 @@ parameters:
   testLogTitle: 'Non-Windows'
 
 steps:
-
-- ${{ if eq(parameters.componentDetection, 'true') }}:
-    # Component detection
-    - task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
-      displayName: 'Component Detection'
-      condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
-
 # Clean
 - checkout: self
   clean: true
 
-# Build agent layout
-- script: ./dev.sh layout Release
-  workingDirectory: src
-  displayName: Build & Layout Release
-
-# Run test
-- script: ./dev.sh testl0
-  workingDirectory: src
-  displayName: Unit tests
-
 - script: ./dev.sh testl1
   workingDirectory: src
   displayName: Functional tests
-  condition: ne('${{ parameters.testLogTitle }}', 'Linux-ARM')
-
-# Publish test results
-- task: PublishTestResults@2
-  displayName: Publish Test Results **/*.trx
-  condition: always()
-  inputs:
-    testRunner: VSTest
-    testResultsFiles: '**/*.trx'
-    testRunTitle: 'Agent Tests - ${{ parameters.testLogTitle }}'
 
 # Upload test log
 - task: PublishBuildArtifacts@1
