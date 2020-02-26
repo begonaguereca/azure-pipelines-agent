@@ -217,7 +217,7 @@ function cmd_report ()
 
         # for some reason CodeCoverage.exe will only write the output file in the current directory
         pushd $COVERAGE_REPORT_DIR > /dev/null
-        "${HOME}/.nuget/packages/microsoft.codecoverage/15.9.2/build/netstandard1.0/CodeCoverage/CodeCoverage.exe" analyze  "/output:coverage.xml" "$LATEST_COVERAGE_FILE"
+        ".nuget/packages/microsoft.codecoverage/15.9.2/build/netstandard1.0/CodeCoverage/CodeCoverage.exe" analyze  "/output:coverage.xml" "$LATEST_COVERAGE_FILE"
         popd > /dev/null
 
         if ! command -v reportgenerator.exe > /dev/null; then
